@@ -13,7 +13,10 @@ class NightWrite
   def write_to_file
     new_file = File.new(output, "w+")
     new_file.write(@message)
-# binding.pry
-    File.read(new_file)
+    @message
+  end
+
+  def write_three
+    (write_to_file * 3)
   end
 end
