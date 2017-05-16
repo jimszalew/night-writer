@@ -1,22 +1,30 @@
 require_relative 'dictionary.rb'
 require 'pry'
+
 class BrailleTranslation
 
-  # attr_reader :input
+  attr_reader :input
 
-  def initialize#(input)
+  def initialize(input)
     @line1 = ""
     @line2 = ""
     @line3 = ""
     @translation = ""
+    @input = input
   end
 
-  def to_braille(input)
-    braille_chars = input.split(//).map do |letter|
-      alphabet[letter]
-    end
+  def split
+    @input.split(//)
+  end
 
-    braille_chars.map do |character|
+  def to_braille
+    split.map do |character|
+      alphabet[character]
+    end
+  end
+
+  def line_up
+    to_braille.map do |character|
       @line1 += character[0]
       @line2 += character[1]
       @line3 += character[2]
@@ -24,5 +32,4 @@ class BrailleTranslation
     end
    @translation
   end
-
 end
