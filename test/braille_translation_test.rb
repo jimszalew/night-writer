@@ -7,35 +7,45 @@ require 'pry'
 class BrailleTranslationTest < Minitest::Test
 
   def test_it_can_split_input_by_each_character
-    skip
-    b = BrailleTranslation.new("abc")
-    result = b.split
+    input = "abc"
+    expected = ["a", "b", "c"]
 
-    assert_equal ["a", "b", "c"], result
+    b = BrailleTranslation.new
+    result = b.split(input)
+
+    assert_equal expected, result
   end
 
   def test_it_can_get_braille_array_for_each_character
-    skip
-    b = BrailleTranslation.new("abc")
-    result = b.to_braille
+    input = ["a", "b", "c"]
+    expected = [["0.","..",".."], ["0.","0.",".."], ["00","..",".."]]
 
-    assert_equal [["0.","..",".."], ["0.","0.",".."], ["00","..",".."]], result
+    b = BrailleTranslation.new
+    result = b.to_braille(input)
+    # binding.pry
+
+    assert_equal expected, result
   end
 
-  def test_it_can_output_on_three_lines
-    skip
-    b = BrailleTranslation.new("a")
-    result = b.line_up
+  def test_it_can_organize_by_line
+    input = [["0.","..",".."], ["0.","0.",".."], ["00","..",".."]]
+    expected = [["0.","0.","00"], ["..", "0.", ".."], ["..","..",".."]]
 
-    assert_equal "0.\n..\n.." , result
+    b = BrailleTranslation.new
+    result = b.line_up(input)
+
+    assert_equal expected, result
   end
 
   def test_it_can_output_two_braille_characters
     skip
-    b = BrailleTranslation.new("ab")
-    result = b.line_up
+    input = ["ab"]
+    expected = [["0.","..",".."],["0.","0.",".."]]
 
-    assert_equal "0.0.\n..0.\n...." , result
+    b = BrailleTranslation.new
+    result = b.to_braille(input)
+
+    assert_equal expected, result
   end
 
   def test_it_can_translate_a_long_lower_case_string
@@ -79,7 +89,18 @@ class BrailleTranslationTest < Minitest::Test
                   result
   end
 
+  def test_if_array_of_strings_into_string_with_new_lines_chars
+    skip
+    b = BrailleTranslation.new("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    input = ["0.0.0.0.", "........", "........","0.0.", "....", "...."]
+    expected = "0.0.0.0.\n........\n........\n0.0.\n....\n...."
+
+    assert_equal expected, b.to_string(input)
+
+  end
+
   def test_if_it_can_go_more_than_80_characters_wide
+    skip
     b = BrailleTranslation.new("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     b.line_up
     result = b.set_line_width
@@ -88,6 +109,11 @@ class BrailleTranslationTest < Minitest::Test
     assert_equal "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.0.0.0.0.0.0.0.0.0.\n....................\n....................",
                   result
   end
+
+  def test_if_it_can_slice_at_80
+    input = 
+    b = BrailleTranslation.new
+
 
 
 
