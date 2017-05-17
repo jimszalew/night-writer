@@ -7,6 +7,7 @@ require 'pry'
 class BrailleTranslationTest < Minitest::Test
 
   def test_it_can_split_input_by_each_character
+    skip
     b = BrailleTranslation.new("abc")
     result = b.split
 
@@ -14,6 +15,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_get_braille_array_for_each_character
+    skip
     b = BrailleTranslation.new("abc")
     result = b.to_braille
 
@@ -21,6 +23,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_output_on_three_lines
+    skip
     b = BrailleTranslation.new("a")
     result = b.line_up
 
@@ -28,6 +31,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_output_two_braille_characters
+    skip
     b = BrailleTranslation.new("ab")
     result = b.line_up
 
@@ -35,6 +39,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_translate_a_long_lower_case_string
+    skip
     b = BrailleTranslation.new("abcdef")
     result = b.line_up
 
@@ -42,6 +47,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_translate_one_capital_letter
+    skip
     b = BrailleTranslation.new("A")
     result = b.line_up
 
@@ -49,6 +55,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_if_can_translate_two_capital_letters
+    skip
     b = BrailleTranslation.new("AB")
     result = b.line_up
 
@@ -56,6 +63,7 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_it_can_translate_mixed_upper_and_lower_case
+    skip
     b = BrailleTranslation.new("AbCdEf")
     result = b.line_up
 
@@ -63,10 +71,24 @@ class BrailleTranslationTest < Minitest::Test
   end
 
   def test_if_it_can_output_80_characters_wide
+    skip
     b = BrailleTranslation.new("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     result = b.line_up
 
     assert_equal "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................",
                   result
   end
+
+  def test_if_it_can_go_more_than_80_characters_wide
+    b = BrailleTranslation.new("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    b.line_up
+    result = b.set_line_width
+    binding.pry
+
+    assert_equal "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.\n................................................................................\n................................................................................\n0.0.0.0.0.0.0.0.0.0.\n....................\n....................",
+                  result
+  end
+
+
+
 end
