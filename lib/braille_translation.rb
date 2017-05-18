@@ -3,11 +3,9 @@ require 'pry'
 
 class BrailleTranslation
 
-  def initialize
-    @line1 = []
-    @line2 = []
-    @line3 = []
-  end
+  # def initialize
+  #
+  # end
 
   def split(input)
     input.split(//)
@@ -18,34 +16,42 @@ class BrailleTranslation
       alphabet[character]
     end
   end
-# #
-#   def set_line_width
-#     original_string = @translation
-#     answer = @translation.chars.map.each_with_index do |letter, index|
-#       if index % 80 == 0 && index != 0
-#         @translation.insert(index, "\n")
-#       else
-#         letter
-#       end
-#     end
-#     answer.first
-#   end
-  #
-  # def to_string(input)
-  #  input.join("\n")
-  # end
 
-  def line_up(input)
-    holder = []
-# binding.pry
-    input.each do |var|
-      @line1 << var[0]
-      @line2 << var[1]
-      @line3 << var[2]
+  def line1(input)
+    output = []
+    input.map do |character|
+      output << character[0]
     end
-    holder << @line1
-    holder << @line2
-    holder << @line3
-    holder
+    output
   end
+
+  def line2(input)
+    output = []
+    input.map do |character|
+      output << character[1]
+    end
+    output
+  end
+
+  def line3(input)
+    output = []
+    input.map do |character|
+      output << character[2]
+    end
+    output
+  end
+
+  def output(line1, line2, line3)
+    output = []
+    top = line1
+    mid = line2
+    low = line3
+      until top.length == 0
+        output << top.slice!(0..79) + "\n"
+        output << mid.shift(80) + "\n"
+        output << low.shift(80) + "\n"
+      end
+    output.join
+  end
+# binding.pry
 end
